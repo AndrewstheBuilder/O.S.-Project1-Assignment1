@@ -165,6 +165,10 @@ int main() {
                 system(cpCommand);
             }
         }
+        else if(strcmp(command,"pwd\n") == 0)
+        {
+            system(command);
+        }
         else
         {
             printf("Command not recognized or insufficient number of args provided.\n");
