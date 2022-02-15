@@ -21,7 +21,7 @@ class Producer extends Thread {
                 {
                     try
                     {
-                        System.out.println("Integer buffer is full.");
+                        System.out.println("Producer is waiting. Integer buffer is full.");
                         sharedBuffer.wait();
                         Thread.sleep(1000);
                     }
@@ -32,7 +32,7 @@ class Producer extends Thread {
                 }
                 try
                 {
-                    if(sharedBuffer.size()==2){
+                    if(sharedBuffer.size()==8){
                         sharedBuffer.wait();
                         Thread.sleep(100);
                     }
@@ -68,7 +68,7 @@ class Consumer extends Thread {
                 {
                     try
                     {
-                        System.out.println("Integer buffer is empty.");
+                        System.out.println("Consumer is waiting. Integer buffer is empty.");
                         sharedBuffer.wait();
                         Thread.sleep(1000);
                     }
@@ -79,7 +79,7 @@ class Consumer extends Thread {
                 }
                 try
                 {
-                    if(sharedBuffer.size()==1){
+                    if(sharedBuffer.size()==2){
                         sharedBuffer.wait();
                         Thread.sleep(100);
                     }
@@ -99,7 +99,7 @@ class Consumer extends Thread {
 public class Project1 {
     public static void main(String[] args){
         Stack<Integer> sharedIntArray = new Stack<>();
-        int maxSize = 4;
+        int maxSize = 10;
 
         Producer p1 = new Producer(sharedIntArray, maxSize);
         Producer p2 = new Producer(sharedIntArray, maxSize);
@@ -112,12 +112,12 @@ public class Project1 {
         p1.start();
         c1.start();
         //p2.start();
-        c2.start();
+        //c2.start();
         try
         {
            p1.join();
            c1.join();
-           c2.join();
+           //c2.join();
            //p2.join();
         }
         catch(Exception ex)
